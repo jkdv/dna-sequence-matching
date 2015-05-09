@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -l nodes=24:ppn=4:myri
+#PBS -l walltime=01:00:00
+#PBS -o finding.out
+#PBS -A lc_jnc
+#PBS -j oe
+#PBS -N main
+
+WORK_HOME=/home/rcf-40/heetaeki/csci503-final/dna-sequnce-finding
+
+cd $WORK_HOME
+np=$(cat $PBS_NODEFILE | wc -l)
+
+mpirun -np $np -machinefile $PBS_NODEFILE ./main input_dna.txt entire_dna.txt
+
